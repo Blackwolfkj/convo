@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail des Convocations aux Examens | UH2C</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Background Animated Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="app-container">
+        <!-- Main Card -->
+        <main class="glass-card">
+            <!-- Header Section -->
+            <header class="header">
+                <div class="logo-wrapper">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                </div>
+                <h1>Portail Convocations</h1>
+                <p class="subtitle">Université Hassan II de Casablanca</p>
+                <div class="badge">Année Universitaire 2025/2026</div>
+            </header>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <form id="search-form" autocomplete="off">
+                    <div class="input-group">
+                        <label for="student-id" class="input-label">Numéro d'étudiant</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-id-card input-icon"></i>
+                            <input 
+                                type="text" 
+                                id="student-id" 
+                                name="student-id" 
+                                placeholder="Ex: 10000509" 
+                                required 
+                                pattern="\d+"
+                                maxlength="12"
+                                inputmode="numeric"
+                            >
+                            <button type="submit" class="btn-search" aria-label="Rechercher">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Loading Spinner (Hidden by default) -->
+            <div id="loader" class="loader-container hidden">
+                <div class="spinner"></div>
+                <p>Recherche de votre convocation...</p>
+            </div>
+
+            <!-- Error Message (Hidden by default) -->
+            <div id="error-box" class="error-container hidden">
+                <div class="error-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="error-text">
+                    <h3>Aucun résultat trouvé</h3>
+                    <p id="error-msg">Veuillez vérifier votre numéro d'étudiant et réessayer.</p>
+                </div>
+            </div>
+
+            <!-- Result Card (Hidden by default) -->
+            <section id="result-card" class="result-container hidden">
+                <div class="success-header">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <h2>Convocation Disponible</h2>
+                        <p class="status-text">Votre dossier a été trouvé avec succès.</p>
+                    </div>
+                </div>
+
+                <div class="student-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Étudiant</span>
+                        <span id="student-name" class="info-value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">N° Étudiant</span>
+                        <span id="student-number" class="info-value">-</span>
+                    </div>
+                    <div class="info-item full-width">
+                        <span class="info-label">Détails du document</span>
+                        <span id="student-exams" class="info-value">
+                            <i class="fa-solid fa-file-pdf"></i> Convocation individuelle
+                        </span>
+                    </div>
+                </div>
+
+                <div class="actions-wrapper">
+                    <button id="btn-preview" class="btn btn-secondary">
+                        <i class="fa-solid fa-eye"></i> Aperçu en ligne
+                    </button>
+                    <a id="btn-download" href="#" class="btn btn-primary" download>
+                        <i class="fa-solid fa-download"></i> Télécharger PDF
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Preview Modal / Section -->
+        <section id="preview-section" class="preview-container hidden">
+            <div class="preview-header">
+                <h3><i class="fa-solid fa-file-lines"></i> Aperçu de votre Convocation</h3>
+                <button id="btn-close-preview" class="btn-close" aria-label="Fermer l'aperçu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="iframe-wrapper">
+                <iframe id="pdf-viewer" src="" title="Visualiseur PDF"></iframe>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Université Hassan II de Casablanca. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
